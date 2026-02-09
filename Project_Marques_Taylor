@@ -1,48 +1,89 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
-public class Project_Marques_Taylor {  // <-- CHANGE this to match your filename exactly
+public class Project_Marques_Taylor {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+        ArrayList<Policy> policies = new ArrayList<>();
+        int smokerCount = 0;
+        int nonSmokerCount = 0;
 
-        System.out.print("Enter the Policy Number: ");
-        int policyNumber = Integer.parseInt(input.nextLine().trim());
+        try (BufferedReader br = new BufferedReader(new FileReader("PolicyInformation.txt"))) {
 
-        System.out.print("Enter the Provider Name: ");
-        String providerName = input.nextLine();
+            while (true) {
+                String policyNumberLine = readNextNonBlankLine(br);
+                if (policyNumberLine == null) {
+                    break; // done reading the file
+                }
 
-        System.out.print("Enter the Policyholder's First Name: ");
-        String firstName = input.nextLine();
+                String providerName = readNextNonBlankLine(br);
+                String firstName = readNextNonBlankLine(br);
+                String lastName = readNextNonBlankLine(br);
+                String ageLine = readNextNonBlankLine(br);
+                String smokingStatus = readNextNonBlankLine(br);
+                String heightLine = readNextNonBlankLine(br);
+                String weightLine = readNextNonBlankLine(br);
 
-        System.out.print("Enter the Policyholder's Last Name: ");
-        String lastName = input.nextLine();
+                // If the file ended unexpectedly mid-policy, stop cleanly
+                if (providerName == null || firstName == null || lastName == null || ageLine == null ||
+                        smokingStatus == null || heightLine == null || weightLine == null) {
+                    break;
+                }
 
-        System.out.print("Enter the Policyholder's Age: ");
-        int age = Integer.parseInt(input.nextLine().trim());
+                int policyNumber = Integer.parseInt(policyNumberLine.trim());
+                int age = Integer.parseInt(ageLine.trim());
+                double height = Double.parseDouble(heightLine.trim());
+                double weight = Double.parseDouble(weightLine.trim());
 
-        System.out.print("Enter the Policyholder's Smoking Status (smoker/non-smoker): ");
-        String smokingStatus = input.nextLine();
+                Policy policy = new Policy(policyNumber, providerName, firstName, lastName, age, smokingStatus, height, weight);
+                policies.add(policy);
 
-        System.out.print("Enter the Policyholder's Height (in inches): ");
-        double height = Double.parseDouble(input.nextLine().trim());
+                if (smokingStatus.trim().equalsIgnoreCase("smoker")) {
+                    smokerCount++;
+                } else {
+                    nonSmokerCount++;
+                }
+            }
 
-        System.out.print("Enter the Policyholder's Weight (in pounds): ");
-        double weight = Double.parseDouble(input.nextLine().trim());
+        } catch (IOException e) {
+            System.out.println("Error: Could not read PolicyInformation.txt");
+            System.out.println(e.getMessage());
+            return;
+        } catch (NumberFormatException e) {
+            System.out.println("Error: A number in PolicyInformation.txt is not formatted correctly.");
+            System.out.println(e.getMessage());
+            return;
+        }
 
-        Policy policy = new Policy(policyNumber, providerName, firstName, lastName, age, smokingStatus, height, weight);
+        // Step 3: display info for each policy
+        for (Policy policy : policies) {
+            System.out.println("Policy Number: " + policy.getPolicyNumber());
+            System.out.println("Provider Name: " + policy.getProviderName());
+            System.out.println("Policyholder's First Name: " + policy.getPolicyholderFirstName());
+            System.out.println("Policyholder's Last Name: " + policy.getPolicyholderLastName());
+            System.out.println("Policyholder's Age: " + policy.getPolicyholderAge());
+            System.out.println("Policyholder's Smoking Status: " + policy.getPolicyholderSmokingStatus());
+            System.out.println("Policyholder's Height: " + policy.getPolicyholderHeight());
+            System.out.println("Policyholder's Weight: " + policy.getPolicyholderWeight());
+            System.out.printf("Policyholder's BMI: %.2f%n", policy.calculateBMI());
+            System.out.printf("Policy Price: $%.2f%n", policy.calculatePolicyPrice());
+            System.out.println(); // blank line between policies (remove if their sample doesn't want it)
+        }
 
-        System.out.println();
-        System.out.println("Policy Number: " + policy.getPolicyNumber());
-        System.out.println("Provider Name: " + policy.getProviderName());
-        System.out.println("Policyholder's First Name: " + policy.getPolicyholderFirstName());
-        System.out.println("Policyholder's Last Name: " + policy.getPolicyholderLastName());
-        System.out.println("Policyholder's Age: " + policy.getPolicyholderAge());
-        System.out.println("Policyholder's Smoking Status: " + policy.getPolicyholderSmokingStatus());
-        System.out.println("Policyholder's Height: " + policy.getPolicyholderHeight());
-        System.out.println("Policyholder's Weight: " + policy.getPolicyholderWeight());
-        System.out.printf("Policyholder's BMI: %.2f%n", policy.calculateBMI());
-        System.out.printf("Policy Price: $%.2f%n", policy.calculatePolicyPrice());
+        // Step 4: smoker/non-smoker counts
+        System.out.println("Number of policyholders that are smokers: " + smokerCount);
+        System.out.println("Number of policyholders that are non-smokers: " + nonSmokerCount);
+    }
 
-        input.close();
+    private static String readNextNonBlankLine(BufferedReader br) throws IOException {
+        String line;
+        while ((line = br.readLine()) != null) {
+            line = line.trim();
+            if (!line.isEmpty()) {
+                return line;
+            }
+        }
+        return null;
     }
 }
-
