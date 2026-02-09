@@ -1,3 +1,6 @@
+/**
+ * Models an insurance policy for one person.
+ */
 public class Policy {
     private int policyNumber;
     private String providerName;
@@ -8,7 +11,9 @@ public class Policy {
     private double policyholderHeight;        // inches
     private double policyholderWeight;        // pounds
 
-    // No-arg constructor (default values)
+    /**
+     * No-arg constructor that sets default values for all fields.
+     */
     public Policy() {
         policyNumber = 0;
         providerName = "";
@@ -20,7 +25,18 @@ public class Policy {
         policyholderWeight = 0.0;
     }
 
-    // Constructor with arguments (fully initializes Policy)
+    /**
+     * Constructor that initializes a Policy object using all required field values.
+     *
+     * @param policyNumber the policy number
+     * @param providerName the provider name
+     * @param policyholderFirstName the policyholder's first name
+     * @param policyholderLastName the policyholder's last name
+     * @param policyholderAge the policyholder's age
+     * @param policyholderSmokingStatus the policyholder's smoking status ("smoker" or "non-smoker")
+     * @param policyholderHeight the policyholder's height in inches
+     * @param policyholderWeight the policyholder's weight in pounds
+     */
     public Policy(int policyNumber,
                   String providerName,
                   String policyholderFirstName,
@@ -40,40 +56,168 @@ public class Policy {
         this.policyholderWeight = policyholderWeight;
     }
 
-    // Getters and setters
-    public int getPolicyNumber() { return policyNumber; }
-    public void setPolicyNumber(int policyNumber) { this.policyNumber = policyNumber; }
+    /**
+     * Gets the policy number.
+     *
+     * @return the policy number
+     */
+    public int getPolicyNumber() {
+        return policyNumber;
+    }
 
-    public String getProviderName() { return providerName; }
-    public void setProviderName(String providerName) { this.providerName = providerName; }
+    /**
+     * Sets the policy number.
+     *
+     * @param policyNumber the policy number
+     */
+    public void setPolicyNumber(int policyNumber) {
+        this.policyNumber = policyNumber;
+    }
 
-    public String getPolicyholderFirstName() { return policyholderFirstName; }
-    public void setPolicyholderFirstName(String policyholderFirstName) { this.policyholderFirstName = policyholderFirstName; }
+    /**
+     * Gets the provider name.
+     *
+     * @return the provider name
+     */
+    public String getProviderName() {
+        return providerName;
+    }
 
-    public String getPolicyholderLastName() { return policyholderLastName; }
-    public void setPolicyholderLastName(String policyholderLastName) { this.policyholderLastName = policyholderLastName; }
+    /**
+     * Sets the provider name.
+     *
+     * @param providerName the provider name
+     */
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
 
-    public int getPolicyholderAge() { return policyholderAge; }
-    public void setPolicyholderAge(int policyholderAge) { this.policyholderAge = policyholderAge; }
+    /**
+     * Gets the policyholder's first name.
+     *
+     * @return the policyholder's first name
+     */
+    public String getPolicyholderFirstName() {
+        return policyholderFirstName;
+    }
 
-    public String getPolicyholderSmokingStatus() { return policyholderSmokingStatus; }
-    public void setPolicyholderSmokingStatus(String policyholderSmokingStatus) { this.policyholderSmokingStatus = policyholderSmokingStatus; }
+    /**
+     * Sets the policyholder's first name.
+     *
+     * @param policyholderFirstName the policyholder's first name
+     */
+    public void setPolicyholderFirstName(String policyholderFirstName) {
+        this.policyholderFirstName = policyholderFirstName;
+    }
 
-    public double getPolicyholderHeight() { return policyholderHeight; }
-    public void setPolicyholderHeight(double policyholderHeight) { this.policyholderHeight = policyholderHeight; }
+    /**
+     * Gets the policyholder's last name.
+     *
+     * @return the policyholder's last name
+     */
+    public String getPolicyholderLastName() {
+        return policyholderLastName;
+    }
 
-    public double getPolicyholderWeight() { return policyholderWeight; }
-    public void setPolicyholderWeight(double policyholderWeight) { this.policyholderWeight = policyholderWeight; }
+    /**
+     * Sets the policyholder's last name.
+     *
+     * @param policyholderLastName the policyholder's last name
+     */
+    public void setPolicyholderLastName(String policyholderLastName) {
+        this.policyholderLastName = policyholderLastName;
+    }
 
-    // BMI = (Weight * 703) / (Height^2)
+    /**
+     * Gets the policyholder's age.
+     *
+     * @return the policyholder's age
+     */
+    public int getPolicyholderAge() {
+        return policyholderAge;
+    }
+
+    /**
+     * Sets the policyholder's age.
+     *
+     * @param policyholderAge the policyholder's age
+     */
+    public void setPolicyholderAge(int policyholderAge) {
+        this.policyholderAge = policyholderAge;
+    }
+
+    /**
+     * Gets the policyholder's smoking status.
+     *
+     * @return the smoking status ("smoker" or "non-smoker")
+     */
+    public String getPolicyholderSmokingStatus() {
+        return policyholderSmokingStatus;
+    }
+
+    /**
+     * Sets the policyholder's smoking status.
+     *
+     * @param policyholderSmokingStatus the smoking status ("smoker" or "non-smoker")
+     */
+    public void setPolicyholderSmokingStatus(String policyholderSmokingStatus) {
+        this.policyholderSmokingStatus = policyholderSmokingStatus;
+    }
+
+    /**
+     * Gets the policyholder's height in inches.
+     *
+     * @return the height in inches
+     */
+    public double getPolicyholderHeight() {
+        return policyholderHeight;
+    }
+
+    /**
+     * Sets the policyholder's height in inches.
+     *
+     * @param policyholderHeight the height in inches
+     */
+    public void setPolicyholderHeight(double policyholderHeight) {
+        this.policyholderHeight = policyholderHeight;
+    }
+
+    /**
+     * Gets the policyholder's weight in pounds.
+     *
+     * @return the weight in pounds
+     */
+    public double getPolicyholderWeight() {
+        return policyholderWeight;
+    }
+
+    /**
+     * Sets the policyholder's weight in pounds.
+     *
+     * @param policyholderWeight the weight in pounds
+     */
+    public void setPolicyholderWeight(double policyholderWeight) {
+        this.policyholderWeight = policyholderWeight;
+    }
+
+    /**
+     * Calculates and returns the BMI of the policyholder.
+     * BMI = (weight * 703) / (height^2)
+     *
+     * @return the calculated BMI
+     */
     public double calculateBMI() {
         if (policyholderHeight <= 0) {
-            return 0.0; // avoids divide-by-zero / stale weirdness
+            return 0.0;
         }
         return (policyholderWeight * 703.0) / (policyholderHeight * policyholderHeight);
     }
 
-    // Price calculation rules
+    /**
+     * Calculates and returns the price of the insurance policy based on the rules provided.
+     *
+     * @return the calculated policy price
+     */
     public double calculatePolicyPrice() {
         double price = 600.0;
 
@@ -82,7 +226,7 @@ public class Policy {
         }
 
         if (policyholderSmokingStatus != null &&
-            policyholderSmokingStatus.equalsIgnoreCase("smoker")) {
+                policyholderSmokingStatus.equalsIgnoreCase("smoker")) {
             price += 100.0;
         }
 
@@ -94,4 +238,3 @@ public class Policy {
         return price;
     }
 }
-
