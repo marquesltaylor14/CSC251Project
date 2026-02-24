@@ -7,24 +7,59 @@ public class Project_Marques_Taylor {  // <-- CHANGE this to match your filename
         System.out.print("Enter the Policy Number: ");
         int policyNumber = Integer.parseInt(input.nextLine().trim());
 
+            while (true) {
+                String policyNumberLine = readNextNonBlankLine(br);
+                if (policyNumberLine == null) {
+                    break; // end of file
+                }
         System.out.print("Enter the Provider Name: ");
         String providerName = input.nextLine();
 
         System.out.print("Enter the Policyholder's First Name: ");
         String firstName = input.nextLine();
 
+                // stop safely if file is incomplete
+                if (providerName == null || firstName == null || lastName == null ||
+                    ageLine == null || smokingStatus == null || heightLine == null || weightLine == null) {
+                    break;
+                }
         System.out.print("Enter the Policyholder's Last Name: ");
         String lastName = input.nextLine();
 
         System.out.print("Enter the Policyholder's Age: ");
         int age = Integer.parseInt(input.nextLine().trim());
 
+                PolicyHolder holder = new PolicyHolder(firstName, lastName, age, smokingStatus, height, weight);
+                Policy policy = new Policy(policyNumber, providerName, holder);
+
+                policies.add(policy);
         System.out.print("Enter the Policyholder's Smoking Status (smoker/non-smoker): ");
         String smokingStatus = input.nextLine();
 
         System.out.print("Enter the Policyholder's Height (in inches): ");
         double height = Double.parseDouble(input.nextLine().trim());
 
+        } catch (IOException e) {
+            System.out.println("Error reading file: PolicyInformation.txt");
+            System.out.println(e.getMessage());
+            return;
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Invalid numeric data in PolicyInformation.txt");
+            System.out.println(e.getMessage());
+            return;
+        }
+
+        // Step 6: implicitly calls toString()
+        for (Policy policy : policies) {
+            System.out.println(policy);
+            System.out.println();
+        }
+
+        // Step 7
+        System.out.println("Number of Policy objects created: " + Policy.getPolicyCount());
+        System.out.println("Number of policyholders that are smokers: " + smokerCount);
+        System.out.println("Number of policyholders that are non-smokers: " + nonSmokerCount);
+    }
         System.out.print("Enter the Policyholder's Weight (in pounds): ");
         double weight = Double.parseDouble(input.nextLine().trim());
 
